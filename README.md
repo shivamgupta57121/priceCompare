@@ -6,3 +6,5 @@ You are given link of three Ecommerce website's home page (Amazon, Flipkart, Pay
 
 This script will search the given product entered by user and display the price for top 5 products <br>
 that appeared after search from each website
+
+Command to run script in terminal : node priceCompare.js "Iphone 11" 
