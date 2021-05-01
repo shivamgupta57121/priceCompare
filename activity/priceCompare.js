@@ -34,20 +34,6 @@ async function getListingFromAmazon(link, browserInstance, pName) {
     // Price .a-price-whole
     await newPage.waitForSelector(".a-size-medium.a-color-base.a-text-normal", { visible: true });
     await newPage.waitForSelector(".a-price-whole", { visible: true });
-    function consolerunFn(pNameSelector, priceSelector) {
-        let pNameArr = document.querySelectorAll(pNameSelector);
-        let priceArr = document.querySelectorAll(priceSelector);
-        let details = [];
-        for (let i = 0; i < 5; i++) {
-            let pName = pNameArr[i].innerText;
-            let price = priceArr[i].innerText;
-            details.push(
-                { pName, price }
-            );
-        }
-        return details;
-
-    }
     return newPage.evaluate(consolerunFn, ".a-size-medium.a-color-base.a-text-normal", ".a-price-whole");
 }
 
@@ -62,19 +48,6 @@ async function getListingFromFlipKart(link, browserInstance, pName) {
     // Price ._30jeq3._1_WHN1
     await newPage.waitForSelector("._4rR01T", { visible: true });
     await newPage.waitForSelector("._30jeq3._1_WHN1", { visible: true });
-    function consolerunFn(pNameSelector, priceSelector) {
-        let pNameArr = document.querySelectorAll(pNameSelector);
-        let priceArr = document.querySelectorAll(priceSelector);
-        let details = [];
-        for (let i = 0; i < 5; i++) {
-            let pName = pNameArr[i].innerText;
-            let price = priceArr[i].innerText;
-            details.push(
-                { pName, price }
-            );
-        }
-        return details;
-    }
     return newPage.evaluate(consolerunFn, "._4rR01T", "._30jeq3._1_WHN1");
 }
 
@@ -88,18 +61,21 @@ async function getListingFromPaytmMall(link, browserInstance, pName) {
     // Price ._1kMS
     await newPage.waitForSelector(".UGUy", { visible: true });
     await newPage.waitForSelector("._1kMS", { visible: true });
-    function consolerunFn(pNameSelector, priceSelector) {
-        let pNameArr = document.querySelectorAll(pNameSelector);
-        let priceArr = document.querySelectorAll(priceSelector);
-        let details = [];
-        for (let i = 0; i < 5; i++) {
+    return newPage.evaluate(consolerunFn, ".UGUy", "._1kMS");
+}
+
+function consolerunFn(pNameSelector, priceSelector) {
+    let pNameArr = document.querySelectorAll(pNameSelector);
+    let priceArr = document.querySelectorAll(priceSelector);
+    let details = [];
+    for (let i = 0; i < 5; i++) {
+        if(pNameArr[i] && priceArr[i]){
             let pName = pNameArr[i].innerText;
             let price = priceArr[i].innerText;
             details.push(
                 { pName, price }
             );
-        }
-        return details;
+        } 
     }
-    return newPage.evaluate(consolerunFn, ".UGUy", "._1kMS");
+    return details;
 }
